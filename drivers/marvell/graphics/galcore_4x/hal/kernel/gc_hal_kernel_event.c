@@ -3014,7 +3014,7 @@ _PrintRecord(
 **/
 gceSTATUS
 gckEVENT_Dump(
-    IN gckEVENT Event
+    IN gckEVENT Event // Defined in gc_hal_kernel.h as _gckEVENT ptr
     )
 {
     gcsEVENT_QUEUE_PTR queueHead = Event->queueHead;
@@ -3053,7 +3053,8 @@ gckEVENT_Dump(
     }
 
     gcmkPRINT("  Untriggered Event:");
-    for (i = 0; i < 30; i++)
+
+    for (i = 0; i < gcsEVENT_QUEUE_SIZE; i++)
     {
         queue = &Event->queues[i];
         record = queue->head;

@@ -72,6 +72,13 @@ extern "C" {
 #define gcdMMU_OFFSET_16K_BITS      (32 - gcdMMU_MTLB_BITS - gcdMMU_STLB_16K_BITS)
 #define gcdMMU_OFFSET_16K_MASK      ((1U << gcdMMU_OFFSET_16K_BITS) - 1)
 
+/* Event Queue Size */
+#if gcdFLUSH_FIX
+#define gcsEVENT_QUEUE_SIZE	29
+#else
+#define gcsEVENT_QUEUE_SIZE	30
+#endif
+
 /*******************************************************************************
 ***** Process Secure Cache ****************************************************/
 
@@ -646,11 +653,8 @@ struct _gckEVENT
     gctPOINTER                  eventQueueMutex;
 
     /* Array of event queues. */
-#if gcdFLUSH_FIX
-    gcsEVENT_QUEUE              queues[29];
-#else
-    gcsEVENT_QUEUE              queues[30];
-#endif
+
+    gcsEVENT_QUEUE              queues[gcsEVENT_QUEUE_SIZE];
     gctUINT8                    lastID;
     gctPOINTER                  freeAtom;
 
